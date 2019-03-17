@@ -50,7 +50,7 @@ class App extends React.Component {
       this.setState({ userName: this.userName.current.value })
     }
     else {
-      alert('please enter a username')
+      alert('please enter a valid username')
     }
   }
   logout() {
