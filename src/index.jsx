@@ -40,14 +40,16 @@ class App extends React.Component {
 
   SendData() {
     socket.emit("message", { username: this.state.userName, content: this.chatMessage.current.value });
-    this.setState({ chatMessages: [...this.state.chatMessages, {username: this.state.userName, content: this.chatMessage.current.value }]});  // see our own msg
+    this.setState({ chatMessages: [...this.state.chatMessages, { username: this.state.userName, content: this.chatMessage.current.value }] });  // see our own msg
     this.chatMessage.current.value = '';
   }
 
   enterUsername() {
-    if (this.userName.current.value) {
+    const validateName = /^[a-z]{3,10}$/
+    if (this.userName.current.value.match(validateName)) {
       this.setState({ userName: this.userName.current.value })
-    } else {
+    }
+    else {
       alert('please enter a username')
     }
   }
@@ -55,10 +57,11 @@ class App extends React.Component {
     this.setState({ userName: undefined })
   }
 
-  handleEmoji(code, e) {  
+  handleEmoji(code, e) {
     this.chatMessage.current.value += `:${e.name}:`;
     this.setState({ showEmoji: false })
   }
+  
 
   render() {
     const { chatMessages, userName, showEmoji } = this.state;   // deconstructing
